@@ -1,0 +1,16 @@
+#
+# Board configuration for Milk-V Duos (SG2000)
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# Note: ARCH_BOARD_SG2000_MILKV_DUOS is defined in boards/Kconfig
+# (inside the board selection choice). This file provides additional
+# board-specific options.
+
+if ARCH_BOARD_SG2000_MILKV_DUOS
+
+# Note: chip-level Kconfig (SG2000_ETH etc.) is sourced from
+# arch/risc-v/src/sg2000/Kconfig via arch/risc-v/Kconfig
+
+endif # ARCH_BOARD_SG2000_MILKV_DUOS

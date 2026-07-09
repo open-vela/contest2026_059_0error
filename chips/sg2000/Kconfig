@@ -1,0 +1,56 @@
+#
+# Vendor chip configuration for SG2000
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+if ARCH_CHIP_SG2000
+
+config ARCH_CHIP_SG2002
+	bool
+	default y
+
+config SG2000_ETH
+	bool "SG2000 Ethernet driver"
+	default n
+	depends on NET && NET_ETHERNET
+	---help---
+		Enable the SG2002 (CV181x) DWMAC1000 Ethernet driver.
+		Uses the OpenVela netdev_lowerhalf_s architecture.
+
+		The SG2002 uses a Synopsys DesignWare GMAC v3.50a (DWMAC1000)
+		with a built-in CVitek EPHY connected via RMII.
+
+if SG2000_ETH
+
+config SG2000_ETH_NTXDESC
+	int "Number of TX descriptors"
+	default 64
+	range 16 256
+	---help---
+		Number of TX DMA descriptors in the ring.  Must be a power of 2.
+		Larger values reduce the chance of TX ring overflow under heavy
+		load at the cost of memory (16 bytes per descriptor).
+
+config SG2000_ETH_NRXDESC
+	int "Number of RX descriptors"
+	default 64
+	range 16 256
+	---help---
+		Number of RX DMA descriptors in the ring.  Must be a power of 2.
+		Larger values reduce the chance of RX drops under heavy load
+		at the cost of memory (16 bytes per descriptor + 1536 bytes per
+		RX buffer).
+
+config SG2000_ETH_DEBUG
+	bool "SG2000 Ethernet debug output"
+	default n
+	depends on DEBUG_FEATURES
+	---help---
+		Enable verbose debug logging for the SG2000 Ethernet driver.
+		Logs register dumps, descriptor state changes, PHY status,
+		and interrupt information to the system log.
+
+endif # SG2000_ETH
+
+endif # ARCH_CHIP_SG2000
