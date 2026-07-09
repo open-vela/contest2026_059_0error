@@ -1,0 +1,22 @@
+############################################################################
+# vendor/sg2000/chips/sg2000/Make.defs
+#
+# SPDX-License-Identifier: Apache-2.0
+############################################################################
+
+include $(TOPDIR)/arch/risc-v/src/common/Make.defs
+
+# Specify our HEAD assembly file.  This will be linked as
+# the first object file, so it will appear at address 0
+
+HEAD_ASRC = sg2000_head.S
+
+# Specify our C code within this directory to be included
+
+CHIP_CSRCS  = sg2000_start.c sg2000_irq_dispatch.c sg2000_irq.c
+CHIP_CSRCS += sg2000_timerisr.c sg2000_allocateheap.c
+CHIP_CSRCS += sg2000_mm_init.c sg2000_pgalloc.c
+
+ifeq ($(CONFIG_SG2000_ETH),y)
+CHIP_CSRCS += sg2000_eth.c
+endif
